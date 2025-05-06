@@ -76,4 +76,4 @@ These findings have immediate applications across multiple industries, particula
 
 For questions or collaborations, please contact:
 - Email: torres.ros@northeastern.edu
-- GitHub: [@yourusername](https://github.com/rosalinatorres888)
+- GitHub: [@rosalinatorres](https://github.com/rosalinatorres888)
