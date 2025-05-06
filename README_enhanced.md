@@ -61,6 +61,10 @@ This approach generated 6,480 data points for analysis.
   <p><em>Permutation entropy by axis for each activity</em></p>
 </div>
 
+![Activity patterns showing distinct clusters for different physical movements](images/entropy_complexity_plot.png)
+
+*Figure 1: Distinct clustering of human activities in the entropy-complexity feature space, demonstrating clear separation between different movement types with optimal parameter selection.*
+
 3. **Optimized Discrimination**: Higher dimensions with appropriate delays reveal significant differences:
 
 <div align="center">
@@ -74,6 +78,16 @@ This approach generated 6,480 data points for analysis.
   <img src="3d_parameter_space.png" width="70%" alt="3D visualization of parameter space"/>
   <p><em>3D visualization of activities across the parameter space</em></p>
 </div>
+## Parameter Optimization
+
+To identify the ideal parameters for activity discrimination, I conducted a systematic analysis of different dimension and delay combinations, calculating F-statistics to measure separation power:
+
+<div align="center">
+  <img src="images/parameter_heatmap.png" width="70%" alt="Parameter optimization heatmap"/>
+  <p><em>F-statistic values for different parameter combinations showing optimal settings for activity discrimination</em></p>
+</div>
+
+Higher F-statistic values (darker colors) indicate better discrimination between activities, with the optimal combination found at Dimension=5, Delay=3.
 
 ## Repository Contents
 
@@ -147,5 +161,5 @@ GitHub Repository: https://github.com/yourusername/human-activity-monitoring
 ## Contact
 
 For questions or collaborations, please contact:
-- Email: your.email@example.com
-- GitHub: [@yourusername](https://github.com/yourusername)
+- Email: torres.ros@northeastern.edu
+- GitHub: [@yourusername](https://github.com/rosalinatorres888)
