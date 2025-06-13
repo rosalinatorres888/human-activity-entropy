@@ -1,0 +1,18 @@
+# Data Processing
+pandas==1.5.3
+numpy==1.24.3
+
+# Scientific Computing
+scipy==1.10.1
+scikit-learn==1.2.2
+
+# Visualization
+matplotlib==3.7.1
+seaborn==0.12.2
+
+# Specialized Libraries
+ordpy==1.1.0  # For ordinal pattern analysis
+
+# Jupyter
+jupyter==1.0.0
+ipykernel==6.22.0
