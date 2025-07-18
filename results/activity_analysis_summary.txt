@@ -1,0 +1,7 @@
+=== Human Activity Analysis using Permutation Entropy ===
+
+Dataset Summary:
+Total data points: 180
+Subjects: 15
+Activities: climbingdown, climbingup, running, walking
+Axes: attr_x, attr_y, attr_z

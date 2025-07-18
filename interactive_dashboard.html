@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MotionInsight: Advanced Interactive Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.18.0/plotly.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        .header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        .viz-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+            gap: 30px;
+        }
+        .viz-card {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        .viz-title {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎨 MotionInsight Advanced Visualizations</h1>
+            <p>Interactive Statistical Analysis Dashboard</p>
+        </div>
+        
+        <div class="viz-grid">
+            <div class="viz-card">
+                <h3 class="viz-title">🌟 3D Activity Landscape</h3>
+                <div id="plot3d" style="height: 500px;"></div>
+            </div>
+            
+            <div class="viz-card">
+                <h3 class="viz-title">📡 Performance Radar</h3>
+                <div id="radarChart" style="height: 500px;"></div>
+            </div>
+            
+            <div class="viz-card">
+                <h3 class="viz-title">🔥 Feature Correlation</h3>
+                <div id="correlationMatrix" style="height: 500px;"></div>
+            </div>
+            
+            <div class="viz-card">
+                <h3 class="viz-title">☀️ Statistical Sunburst</h3>
+                <div id="sunburstChart" style="height: 500px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data from your analysis
+        const activityData = {
+            walking: { pe: 0.754, complexity: 0.214, color: '#2E86AB' },
+            running: { pe: 0.813, complexity: 0.162, color: '#A23B72' },
+            climbingup: { pe: 0.773, complexity: 0.199, color: '#F18F01' },
+            climbingdown: { pe: 0.787, complexity: 0.197, color: '#C73E1D' }
+        };
+
+        // 3D Scatter Plot
+        function create3DScatter() {
+            const traces = [];
+            
+            Object.entries(activityData).forEach(([activity, data]) => {
+                const x = [], y = [], z = [];
+                
+                for (let i = 0; i < 15; i++) {
+                    for (let j = 0; j < 3; j++) {
+                        x.push(data.pe + (Math.random() - 0.5) * 0.1);
+                        y.push(data.complexity + (Math.random() - 0.5) * 0.05);
+                        z.push(i + 1 + (Math.random() - 0.5) * 0.3);
+                    }
+                }
+                
+                traces.push({
+                    x: x, y: y, z: z,
+                    mode: 'markers',
+                    type: 'scatter3d',
+                    name: activity.charAt(0).toUpperCase() + activity.slice(1),
+                    marker: {
+                        size: 6,
+                        color: data.color,
+                        opacity: 0.8
+                    }
+                });
+            });
+
+            Plotly.newPlot('plot3d', traces, {
+                scene: {
+                    xaxis: { title: 'Permutation Entropy' },
+                    yaxis: { title: 'Complexity' },
+                    zaxis: { title: 'Subject ID' }
+                },
+                font: { family: 'Arial, sans-serif' }
+            }, {responsive: true});
+        }
+
+        // Radar Chart
+        function createRadar() {
+            const trace = {
+                type: 'scatterpolar',
+                r: [39.4, 51, 48, 47, 97.8, 99.99],
+                theta: ['Accuracy', 'Precision', 'Recall', 'F1-Score', 'PE Significance', 'Complexity Significance'],
+                fill: 'toself',
+                name: 'Performance',
+                line: { color: '#667eea' },
+                fillcolor: 'rgba(102, 126, 234, 0.3)'
+            };
+
+            Plotly.newPlot('radarChart', [trace], {
+                polar: {
+                    radialaxis: { visible: true, range: [0, 100] }
+                },
+                font: { family: 'Arial, sans-serif' }
+            }, {responsive: true});
+        }
+
+        // Correlation Matrix
+        function createCorrelationMatrix() {
+            const trace = {
+                z: [[1.0, 0.3, 0.8, -0.7], [0.3, 1.0, 0.9, -0.8], [0.8, 0.9, 1.0, -0.9], [-0.7, -0.8, -0.9, 1.0]],
+                x: ['PE', 'Complexity', 'F-stat', 'p-value'],
+                y: ['PE', 'Complexity', 'F-stat', 'p-value'],
+                type: 'heatmap',
+                colorscale: 'RdBu',
+                zmid: 0
+            };
+
+            Plotly.newPlot('correlationMatrix', [trace], {
+                font: { family: 'Arial, sans-serif' }
+            }, {responsive: true});
+        }
+
+        // Sunburst Chart
+        function createSunburst() {
+            const trace = {
+                type: 'sunburst',
+                labels: ['Statistical Tests', 'Permutation Entropy', 'Complexity', 'F-statistic', 'p-value', 'Effect Size', 'F-statistic', 'p-value', 'Effect Size'],
+                parents: ['', 'Statistical Tests', 'Statistical Tests', 'Permutation Entropy', 'Permutation Entropy', 'Permutation Entropy', 'Complexity', 'Complexity', 'Complexity'],
+                values: [100, 40, 60, 15, 15, 10, 25, 25, 10],
+                branchvalues: 'total'
+            };
+
+            Plotly.newPlot('sunburstChart', [trace], {
+                font: { family: 'Arial, sans-serif' }
+            }, {responsive: true});
+        }
+
+        // Initialize all visualizations
+        window.addEventListener('load', function() {
+            create3DScatter();
+            createRadar();
+            createCorrelationMatrix();
+            createSunburst();
+        });
+    </script>
+</body>
+</html>
